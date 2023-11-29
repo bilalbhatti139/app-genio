@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "JellaDemoBlackItalic-eZdGO";
+  src: url("font/JellaDemoBlackItalic-eZdGO.woff") format("woff2"),
+    url("font/JellaDemoBlackItalic-eZdGO.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.StepButton-d2-0-2-8.active {
+  background-color: #5082c8 !important;
+  
+}
+
+.StepButton-d6-0-2-12.completed {
+  background-color: grey !important;
+}
+.StepButton-d6-0-2-12.active {
+  background-color: #5082c8 !important;
+}
+.StepButton-d2-0-2-8.completed {
+  background-color: grey !important;
+}
+.StepButton-d10-0-2-22.active {
+background-color: #5082c8 !important;
+}.StepButton-d10-0-2-22.completed {
+  background-color: grey !important;
+  }
+.font {
+  font-family: "Meringue";
+}
+.font-jella-demo {
+  font-family: "JellaDemoBlackItalic-eZdGO";
+}
+/* ImageWithParagraph.css */
+.custom-box-shadow {
+  box-shadow: 0px 8px 12px 0px #00000024;
+}
