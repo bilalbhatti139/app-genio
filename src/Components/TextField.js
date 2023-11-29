@@ -1,7 +1,7 @@
 // FormComponent.jsx
 import React, { useState } from "react";
 
-const FormComponent = ({ onSubmit }) => {
+const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const fieldNames = ["01", "02", "03", "04", "05"];
 
   const [formData, setFormData] = useState(
@@ -54,7 +54,13 @@ const FormComponent = ({ onSubmit }) => {
         </div>
       ))}
 
-      <div className="mb-6 flex justify-center">
+      <div className="mb-6 gap-[10px] flex justify-center">
+        <button
+          className="bg-white text-[32px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-6 rounded-[5px] focus:outline-none focus:shadow-outline"
+          onClick={onMoveBackward}
+        >
+          Back
+        </button>
         <button
           className="bg-[#696969] text-[32px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-2 px-4 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"

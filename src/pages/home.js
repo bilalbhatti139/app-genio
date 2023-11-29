@@ -19,9 +19,14 @@ const Home = () => {
         return <ButtonList onMoveForward={handleMoveForward} />;
 
       case 1:
-        return <Step2 onSubmit={handleMoveForward} />;
+        return (
+          <Step2
+            onSubmit={handleMoveForward}
+            onMoveBackward={handleMoveBackward}
+          />
+        );
       case 2:
-        return <Step3 />;
+        return <Step3 onMoveBackward={handleMoveBackward} />;
       default:
         return null;
     }
@@ -32,21 +37,31 @@ const Home = () => {
       setActiveStep(activeStep + 1);
     }
   };
+  const handleMoveBackward = () => {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
 
   return (
     <div className="flex justify-between flex-col h-[100%]">
-      <img src={genieImage} alt="Genie" className="mb-3 h-[200px] w-[100%]" />
-
-      <div className="container mx-auto my-4">
-        <div className="flex justify-center items-center flex-col">
-          <h1 className="text-[#7600A9] font-normal text-[42px] font">
+      <div className="relative">
+        <img src={genieImage} alt="Genie" className="mb-3 h-[200px] w-[100%]" />
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+          <h1 className="text-[#ffffff] font-normal text-[42px] font">
             Regalos del Genio
           </h1>
+        </div>
+      </div>
+      <div className="container mx-auto my-4">
+        <div className="flex justify-center items-center flex-col">
           {activeStep == 0 ? (
             <h1 className="text-[#5082C8] font-normal font-jella-demo  text-center text-4xl">
               Pon a prueba al Genio, ¿Encontrará lo que buscas?
             </h1>
-          ) : null}
+          ) : (
+            ""
+          )}
 
           <img src={genieImage2} alt="Genie" className="h-[250px]" />
         </div>
