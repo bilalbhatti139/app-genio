@@ -34,10 +34,10 @@ const Home = () => {
   };
 
   return (
-    <div className="">
-      <img src={genieImage} alt="Genie" className="mb-3" />
+    <div className="flex justify-between flex-col h-[100%]">
+      <img src={genieImage} alt="Genie" className="mb-3 h-[200px] w-[100%]" />
 
-      <div className="container mx-auto">
+      <div className="container mx-auto my-4">
         <div className="flex justify-center items-center flex-col">
           <h1 className="text-[#7600A9] font-normal text-[42px] font">
             Regalos del Genio
@@ -48,15 +48,16 @@ const Home = () => {
             </h1>
           ) : null}
 
-          <img src={genieImage2} alt="Genie" className="" />
+          <img src={genieImage2} alt="Genie" className="h-[250px]" />
         </div>
 
         <CustomStepper steps={steps} activeStep={activeStep} />
-        <div className="flex mt-[50px] items-center justify-center ">
+        <div className="flex my-[20px] items-center justify-center ">
           <div className="w-[75%]">{getSectionComponent()}</div>
         </div>
       </div>
-      <div class="bg-gradient-to-r from-[#9E49C4] via-[#5082c8] to-[#FFBD59] h-[7px] w-full"></div>
+
+      <div class="bg-gradient-to-r from-[#9E49C4] via-[#5082c8]   to-[#FFBD59] h-[7px] w-full"></div>
     </div>
   );
 };
