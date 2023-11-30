@@ -2,11 +2,14 @@ import React from "react";
 import { useState } from "react";
 
 const Button = ({ onClick, text, borderRadius, Color }) => {
-  const buttonClasses = `py-5 border-2  md:px-[6rem] lg:px-[9rem] xl:px-[11rem] sm:px-[5rem] px-[2rem]   box-shadow-custom2 text-white hover:outline-none hover-border-2`;
+  const buttonClasses = `py-5 border-2 flex-grow md:w-[150px] lg:w-[200px] xl:w-[250px] sm:w-[120px] w-[100px] box-shadow-custom2 text-white hover:outline-none hover-border-2`;
+
 
   const buttonStyle = {
     borderRadius: `${borderRadius}px`,
     backgroundColor: Color,
+    
+   
   };
 
   const hoverStyles = {
@@ -34,12 +37,12 @@ const Button = ({ onClick, text, borderRadius, Color }) => {
 // Update the ButtonList component
 const ButtonList = ({ onMoveForward }) => {
   const buttonsData = [
-    { text: "Button 1", borderRadius: 5, Color: "#5082c8" },
-    { text: "Button 2", borderRadius: 5, Color: "#9E49C4" },
-    { text: "Button 3", borderRadius: 5, Color: "#FFBD59" },
-    { text: "Button 4", borderRadius: 5, Color: "#D0A3CF" },
-    { text: "Button 5", borderRadius: 5, Color: "#7600A9" },
-    { text: "Button 6", borderRadius: 5, Color: "#C38E19" },
+    { text: "Libros", borderRadius: 5, Color: "#5082c8" },
+    { text: "Películas", borderRadius: 5, Color: "#9E49C4" },
+    { text: "Música", borderRadius: 5, Color: "#FFBD59" },
+    { text: "Juguetes", borderRadius: 5, Color: "#D0A3CF" },
+    { text: "Cómics", borderRadius: 5, Color: "#7600A9" },
+    { text: "No lo tengo claro", borderRadius: 5, Color: "#C38E19" },
   ];
 
   // Split the buttonsData array into chunks of size 2
@@ -56,7 +59,7 @@ const ButtonList = ({ onMoveForward }) => {
         {buttonRows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="flex flex-row justify-between items-center mb-3"
+            className="flex flex-row justify-between gap-[30px] items-center mb-3"
           >
             {row.map((button, index) => (
               <Button
