@@ -1,5 +1,5 @@
-// FormComponent.jsx
 import React, { useState } from "react";
+import axios from "axios";
 
 const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const fieldNames = ["01", "02", "03", "04", "05"];
@@ -19,11 +19,45 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  // Replace 'YOUR_API_KEY' with your actual OpenAI API key
+  const apiKey = "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";
+  const engine = "text-davinci-003"; // GPT-3.5-turbo
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit();
-    // Add your form submission logic here
-    console.log("Form submitted:", formData);
+    console.log("form", formData);
+
+    // Prepare the prompt for OpenAI
+    const prompt = Object.values(formData).join("\n");
+
+    try {
+      // Make a request to the OpenAI API
+      const response = await axios.post(
+        `https://api.openai.com/v1/engines/${engine}/completions`,
+        {
+          prompt:
+            "Generate a paragraph about a person named Tim. He is 7 years old, likes the colors yellow and green, and is in class 10.",
+
+          max_tokens: 150,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Handle the OpenAI response (you may need to customize this part)
+      const openaiResponse = response.data.choices[0].text.trim();
+      console.log("OpenAI response:", openaiResponse);
+
+      // Continue with the rest of your form submission logic
+      console.log("Form submitted:", formData);
+    } catch (error) {
+      console.error("Error calling OpenAI API:", error);
+    }
   };
 
   return (
