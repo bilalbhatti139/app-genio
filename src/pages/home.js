@@ -1,7 +1,5 @@
-import Button from "../Components/button";
 import genieImage from "../assets/1.png";
 import genieImage2 from "../assets/logo2.png";
-import Step1 from "../pages/step1";
 import Step2 from "../pages/step2";
 import Step3 from "../pages/step3";
 import CustomStepper from "../Components/stepper";
@@ -60,25 +58,27 @@ const Home = () => {
         This website uses cookies to enhance the user experience.
       </CookieConsent>
       <div
-        className="relative h-[200px] bg-cover bg-center  flex items-center justify-center"
+        className="relative h-[200px] bg-cover bg-center"
         style={{ backgroundImage: `url(${genieImage})` }}
       >
-        <img
-          src={genieImage2}
-          alt="Genie Logo"
-          className="absolute top-0 left-0 cursor-pointer  h-[150px]
+        <div className="flex justify-center items-center flex-col">
+          <img
+            src={genieImage2}
+            alt="Genie Logo"
+            className="  h-[150px]
        "
-          onClick={handleFunc}
-        />
-        <div className="text-white text-2xl font-bold">
-          <h1 className="text-[#ffffff] font-normal text-[42px] font">
-            Regalos del Genio
-          </h1>{" "}
+            onClick={handleFunc}
+          />
+          <div className="text-white text-2xl font-bold">
+            <h1 className="text-[#ffffff] font-normal text-[42px] font">
+              Regalos del Genio
+            </h1>{" "}
+          </div>
         </div>
       </div>
       <div className="container  mx-auto my-[4.5rem]">
         <div className="flex justify-center items-center flex-col">
-          {activeStep == 0 ? (
+          {activeStep === 0 ? (
             <h1 className="text-[#5082C8] font-normal font-jella-demo  text-center text-4xl">
               Pon a prueba al Genio, ¿Encontrará lo que buscas?
             </h1>

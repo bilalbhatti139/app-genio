@@ -39,8 +39,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
         `https://api.openai.com/v1/engines/${engine}/completions`,
         {
           prompt,
-
-          max_tokens: 150,
+          max_tokens: 400,
         },
         {
           headers: {
@@ -95,13 +94,13 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           className="bg-white text-[32px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-6 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}
         >
-          Back
+          Atrás
         </button>
         <button
           className="bg-[#696969] text-[32px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-2 px-4 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Submit
+          Enviar
         </button>
       </div>
     </form>
