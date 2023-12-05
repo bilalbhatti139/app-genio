@@ -1,32 +1,76 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useButtonText } from "../Context/buttonContext";
 
-const Button = ({ onClick, text, borderRadius, Color }) => {
+const Button = ({
+  onClick,
+  text,
+  borderRadius,
+  Color,
+  isEditable,
+  onChange,
+}) => {
   const buttonClasses = `py-5 border-2 flex-grow md:w-[150px] lg:w-[200px] xl:w-[250px] sm:w-[120px] w-[100px] box-shadow-custom2 text-white hover:outline-none hover-border-2`;
-
 
   const buttonStyle = {
     borderRadius: `${borderRadius}px`,
     backgroundColor: Color,
-    
-   
   };
 
   const hoverStyles = {
     backgroundColor: "white",
     color: Color,
-    border: `2px solid ${Color}`, // Set the border color to the value of Color
-    // boxShadow: "0px 7px 4px 0px #00000029 inset, 0px 6px 8px 0px #00000038",
+    border: `2px solid ${Color}`,
   };
 
-  const [hover, setHover] = useState(false);
+  const [buttonHover, setButtonHover] = useState(false);
+  const [inputHover, setInputHover] = useState(false);
+
+  if (isEditable) {
+    return (
+      <div className="flex-grow md:w-[150px] lg:w-[200px] xl:w-[250px] sm:w-[120px] w-[100px] box-shadow-custom2 relative">
+        <input
+          type="text"
+          className={`py-5 border-2 flex-grow w-full hover:outline-none hover-border-2 text-white ${
+            inputHover ? "bg-white text-" + Color + " border-" + Color : ""
+          }`}
+          style={{
+            ...buttonStyle,
+            ...(inputHover ? hoverStyles : {}),
+            textAlign: "center",
+          }}
+          onMouseEnter={() => setInputHover(true)}
+          onMouseLeave={() => setInputHover(false)}
+          value={text}
+          onChange={onChange}
+          onBlur={() => {
+            console.log("Input field blurred");
+            if (onClick) {
+              onClick();
+            }
+          }}
+        />
+        <span
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          style={{ position: "absolute", right: "10px" }}
+          onClick={() => {
+            console.log("Check mark clicked");
+            if (onClick) {
+              onClick();
+            }
+          }}
+        >
+          ✔️
+        </span>
+      </div>
+    );
+  }
 
   return (
     <button
       className={buttonClasses}
-      style={{ ...buttonStyle, ...(hover ? hoverStyles : {}) }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      style={{ ...buttonStyle, ...(buttonHover ? hoverStyles : {}) }}
+      onMouseEnter={() => setButtonHover(true)}
+      onMouseLeave={() => setButtonHover(false)}
       onClick={onClick}
     >
       {text}
@@ -34,18 +78,22 @@ const Button = ({ onClick, text, borderRadius, Color }) => {
   );
 };
 
-// Update the ButtonList component
 const ButtonList = ({ onMoveForward }) => {
+  const { buttonText, updateButtonText } = useButtonText();
+
   const buttonsData = [
     { text: "Libros", borderRadius: 5, Color: "#5082c8" },
     { text: "Películas", borderRadius: 5, Color: "#9E49C4" },
     { text: "Música", borderRadius: 5, Color: "#FFBD59" },
     { text: "Juguetes", borderRadius: 5, Color: "#D0A3CF" },
     { text: "Cómics", borderRadius: 5, Color: "#7600A9" },
-    { text: "No lo tengo claro", borderRadius: 5, Color: "#C38E19" },
+    { text: buttonText, borderRadius: 5, Color: "#C38E19", isEditable: true },
   ];
 
-  // Split the buttonsData array into chunks of size 2
+  const handleEditableTextChange = (event) => {
+    updateButtonText(event.target.value);
+  };
+
   const buttonRows = buttonsData.reduce(
     (rows, key, index) =>
       (index % 2 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
@@ -67,6 +115,8 @@ const ButtonList = ({ onMoveForward }) => {
                 text={button.text}
                 borderRadius={button.borderRadius}
                 Color={button.Color}
+                isEditable={button.isEditable}
+                onChange={handleEditableTextChange}
                 onClick={() => {
                   console.log(`Button ${index + 1} clicked`);
                   if (onMoveForward) {
@@ -81,6 +131,5 @@ const ButtonList = ({ onMoveForward }) => {
     </div>
   );
 };
-
 
 export default ButtonList;
