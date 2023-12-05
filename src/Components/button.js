@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useButtonText } from "../Context/buttonContext";
-
+import { usePresssedButtonsText } from "../Context/buttonForwordContext";
 const Button = ({
   onClick,
   text,
@@ -61,7 +61,6 @@ const Button = ({
             className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
             style={{ position: "absolute", right: "10px" }}
             onClick={() => {
-              console.log("Check mark clicked");
               if (onClick) {
                 onClick();
               }
@@ -89,7 +88,8 @@ const Button = ({
 
 const ButtonList = ({ onMoveForward }) => {
   const { buttonText, updateButtonText } = useButtonText();
-
+  const { updateButtonsText, savePressedButtonText, pressedButtonText ,buttonsText} =
+    usePresssedButtonsText();
   const buttonsData = [
     { text: "Libros", borderRadius: 5, Color: "#5082c8" },
     { text: "Películas", borderRadius: 5, Color: "#9E49C4" },
@@ -126,8 +126,9 @@ const ButtonList = ({ onMoveForward }) => {
                 Color={button.Color}
                 isEditable={button.isEditable}
                 onChange={handleEditableTextChange}
-                onClick={() => {
-                  console.log(`Button ${index + 1} clicked`);
+                onClick={(e) => {
+                  updateButtonsText(button.text);
+                  savePressedButtonText();
                   if (onMoveForward) {
                     onMoveForward();
                   }

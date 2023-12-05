@@ -1,24 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useOpenAI } from "../Context/apiContext";
-
+import { usePresssedButtonsText } from "../Context/buttonForwordContext";
+import jsondata from "../Json/data.json";
 const FormComponent = ({ onSubmit, onMoveBackward }) => {
-  const fieldNames = ["01", "02", "03", "04", "05"];
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
+  const [formData, setFormData] = useState("");
+  const { buttonsText } = usePresssedButtonsText();
+
   const { setResponse } = useOpenAI();
 
-  const [formData, setFormData] = useState(
-    fieldNames.reduce((acc, fieldName) => {
-      acc[fieldName] = "";
-      return acc;
-    }, {})
-  );
+  const [questions, setQuestions] = useState([]);
 
+  useEffect(() => {
+    // Fetch questions from the JSON file based on the category prop
+    const fetchQuestions = async () => {
+      try {
+        const categoryQuestions = jsondata.data[buttonsText] || [];
+        setQuestions(categoryQuestions);
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    };
+
+    fetchQuestions();
+  }, [buttonsText]); // Update questions when the category changes
+
+  useEffect(() => {
+    // Function to randomly select 5 questions
+    const getRandomQuestions = () => {
+      const shuffledQuestions = questions.sort(() => 0.5 - Math.random());
+      const selectedQuestions = shuffledQuestions.slice(0, 5);
+      setSelectedQuestions(selectedQuestions);
+    };
+
+    // Call the function when the component mounts or when questions are updated
+    getRandomQuestions();
+  }, [questions]);
+
+  // Handle form submission logic
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+
+    // Assuming each question has a unique name
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
   // Replace 'YOUR_API_KEY' with your actual OpenAI API key
@@ -28,7 +56,6 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit();
-    console.log("form", formData);
 
     // Prepare the prompt for OpenAI
     const prompt = Object.values(formData).join("\n");
@@ -51,11 +78,11 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
       // Handle the OpenAI response (you may need to customize this part)
       const openaiResponse = response.data.choices[0].text.trim();
-      console.log("OpenAI response:", openaiResponse);
+      setResponse(openaiResponse);
+
       setResponse(openaiResponse);
 
       // Continue with the rest of your form submission logic
-      console.log("Form submitted:", formData);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
@@ -64,27 +91,27 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
       <h1 className="font-[600] text-[32px] text-[#5082C8]">
-        ¡GENIAL! VAMOS A BUSCAR LIBROS
+        ¡GENIAL! VAMOS A BUSCAR {buttonsText}
       </h1>
-      {fieldNames.map((fieldName) => (
-        <div key={fieldName} className="mb-4">
+      {selectedQuestions.map((question, index) => (
+        <div key={index} className="mb-4">
+          {/* Render your questions and inputs here */}
           <label
             className="block text-[#000000] text-[24px] font-[500] mb-2"
-            htmlFor={fieldName}
+            htmlFor={`question-${index + 1}`}
           >
-            {`${fieldName.charAt(0).toUpperCase()}${fieldName.slice(1)}`}
-            <span className="text-[#696969]">
-              ¿ Cuál es tu género literario favorito?{" "}
-            </span>
+            {question}
           </label>
           <input
             className="shadow text-[#696969] appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id={fieldName}
+            id={`question-${index + 1}`}
             type="text"
             placeholder={"Escribe aquí tu respuesta . . ."}
-            name={fieldName}
-            value={formData[fieldName]}
-            onChange={handleInputChange}
+            name={`question-${index + 1}`}
+            value={formData[`question-${index + 1}`] || ""} // Use the corresponding value from formData
+            onChange={(e) => {
+              handleInputChange(e);
+            }} // You can update this if you want to capture user input
           />
         </div>
       ))}

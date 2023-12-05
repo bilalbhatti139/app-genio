@@ -1,21 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { ButtonTextProvider } from '../src/Context/buttonContext';
-import {OpenAIProvider} from '../src/Context/apiContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { ButtonTextProvider } from "../src/Context/buttonContext";
+import { OpenAIProvider } from "../src/Context/apiContext";
+// index.js or where you import the context
+import { ButtonTextForwardProvider } from "./Context/buttonForwordContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// ... (rest of your code)
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* Wrap your App component with the ButtonTextProvider */}
-
-    <ButtonTextProvider>
-    <OpenAIProvider>
-      <App />
-      </OpenAIProvider>
-    </ButtonTextProvider>
+    <ButtonTextForwardProvider>
+      <ButtonTextProvider>
+        <OpenAIProvider>
+          <App />
+        </OpenAIProvider>
+      </ButtonTextProvider>
+    </ButtonTextForwardProvider>
   </React.StrictMode>
 );
 
