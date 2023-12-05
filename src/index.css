@@ -21,8 +21,21 @@
 .StepButton-d2-0-2-8.completed {
   background-color: grey !important;
 }
+.StepButton-d4-0-2-14.active{
+  background-color: #5082c8 !important;
+
+}
+.StepButton-d4-0-2-14.completed{
+  background-color: grey !important;
+}
 .StepButton-d10-0-2-22.active {
   background-color: #5082c8 !important;
+}
+.StepButton-d0-0-2-6.active{
+  background-color: #5082c8;
+}
+.StepButton-d0-0-2-6.completed{
+  background-color: grey !important;
 }
 .StepButton-d10-0-2-22.completed {
   background-color: grey !important;
