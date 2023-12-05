@@ -4,13 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ButtonTextProvider } from '../src/Context/buttonContext';
+import {OpenAIProvider} from '../src/Context/apiContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* Wrap your App component with the ButtonTextProvider */}
+
     <ButtonTextProvider>
+    <OpenAIProvider>
       <App />
+      </OpenAIProvider>
     </ButtonTextProvider>
   </React.StrictMode>
 );

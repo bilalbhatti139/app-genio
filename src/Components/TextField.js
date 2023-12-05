@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useOpenAI } from "../Context/apiContext";
 
 const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const fieldNames = ["01", "02", "03", "04", "05"];
+  const { setResponse } = useOpenAI();
 
   const [formData, setFormData] = useState(
     fieldNames.reduce((acc, fieldName) => {
@@ -36,8 +38,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       const response = await axios.post(
         `https://api.openai.com/v1/engines/${engine}/completions`,
         {
-          prompt:
-            "Generate a paragraph about a person named Tim. He is 7 years old, likes the colors yellow and green, and is in class 10.",
+          prompt,
 
           max_tokens: 150,
         },
@@ -52,6 +53,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       // Handle the OpenAI response (you may need to customize this part)
       const openaiResponse = response.data.choices[0].text.trim();
       console.log("OpenAI response:", openaiResponse);
+      setResponse(openaiResponse);
 
       // Continue with the rest of your form submission logic
       console.log("Form submitted:", formData);

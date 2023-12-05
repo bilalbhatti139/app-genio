@@ -25,6 +25,18 @@ const Button = ({
   const [buttonHover, setButtonHover] = useState(false);
   const [inputHover, setInputHover] = useState(false);
 
+  const handleTextChange = (e) => {
+    onChange(e);
+    setButtonHover(true); // Show the checkmark when text is being edited
+  };
+
+  const handleBlur = () => {
+    setButtonHover(false); // Hide the checkmark when input loses focus
+    if (onClick) {
+      onClick(); // Trigger move forward functionality
+    }
+  };
+
   if (isEditable) {
     return (
       <div className="flex-grow md:w-[150px] lg:w-[200px] xl:w-[250px] sm:w-[120px] w-[100px] box-shadow-custom2 relative">
@@ -41,26 +53,23 @@ const Button = ({
           onMouseEnter={() => setInputHover(true)}
           onMouseLeave={() => setInputHover(false)}
           value={text}
-          onChange={onChange}
-          onBlur={() => {
-            console.log("Input field blurred");
-            if (onClick) {
-              onClick();
-            }
-          }}
+          onChange={handleTextChange}
+          onBlur={handleBlur}
         />
-        <span
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-          style={{ position: "absolute", right: "10px" }}
-          onClick={() => {
-            console.log("Check mark clicked");
-            if (onClick) {
-              onClick();
-            }
-          }}
-        >
-          ✔️
-        </span>
+        {buttonHover && (
+          <span
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            style={{ position: "absolute", right: "10px" }}
+            onClick={() => {
+              console.log("Check mark clicked");
+              if (onClick) {
+                onClick();
+              }
+            }}
+          >
+            ✔️
+          </span>
+        )}
       </div>
     );
   }
