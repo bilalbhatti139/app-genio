@@ -57,8 +57,40 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     e.preventDefault();
     onSubmit();
 
+    // Static data for demonstration purposes
+    // const staticCategory = "electronics";
+    // const staticQuestions = [
+    //   "What is your favorite gadget?",
+    //   "How often do you use technology?",
+    //   "Which brand do you prefer for electronics?",
+    //   "Do you like smart home devices?",
+    //   "Any specific feature you look for in electronics?"
+    // ];
+    // const staticAnswers = [
+    //   "Smartphones",
+    //   "Every day",
+    //   "Sony",
+    //   "Yes",
+    //   "Long battery life"
+    // ];
+
     // Prepare the prompt for OpenAI
-    const prompt = Object.values(formData).join("\n");
+    const prompt = `
+    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto, tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso.
+    ${questions
+      .map(
+        (question, index) => `${question}:${formData[`question-${index + 1}`]}`
+      )
+      .join("\n")}
+  `;
+    // const prompt = `
+    //   Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto, tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${staticCategory}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso.
+    //   ${staticQuestions[0]}:${staticAnswers[0]}
+    //   ${staticQuestions[1]}:${staticAnswers[1]}
+    //   ${staticQuestions[2]}:${staticAnswers[2]}
+    //   ${staticQuestions[3]}:${staticAnswers[3]}
+    //   ${staticQuestions[4]}:${staticAnswers[4]}
+    // `;
 
     try {
       // Make a request to the OpenAI API
@@ -76,13 +108,12 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
         }
       );
 
-      // Handle the OpenAI response (you may need to customize this part)
+      // Handle the OpenAI response
       const openaiResponse = response.data.choices[0].text.trim();
       setResponse(openaiResponse);
+      console.log("response", openaiResponse);
 
-      setResponse(openaiResponse);
-
-      // Continue with the rest of your form submission logic
+      // Continue with the rest of your logic
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
@@ -108,10 +139,10 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
             type="text"
             placeholder={"Escribe aquí tu respuesta . . ."}
             name={`question-${index + 1}`}
-            value={formData[`question-${index + 1}`] || ""} // Use the corresponding value from formData
+            value={formData[`question-${index + 1}`] || ""}
             onChange={(e) => {
               handleInputChange(e);
-            }} // You can update this if you want to capture user input
+            }}
           />
         </div>
       ))}
