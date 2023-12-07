@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { CircleLoader } from "react-spinners";
 import genieImage from "../assets/pic3.jpg";
 import { useOpenAI } from "../Context/apiContext";
+
 const Step3 = ({ onMoveBackward }) => {
   const { openaiResponse } = useOpenAI();
+  const [responseReceived, setResponseReceived] = useState(false);
+
+  useEffect(() => {
+    if (openaiResponse) {
+      // If openaiResponse is truthy, set responseReceived to true
+      setResponseReceived(true);
+    }
+  }, [openaiResponse]);
 
   return (
     <div>
@@ -12,16 +22,32 @@ const Step3 = ({ onMoveBackward }) => {
         </div>
 
         <div className="md:w-1/2 sm:w-[100%] w-[100%]  text-[16px] font-[500] text-[#696969] leading-[36px]">
-          <p>{openaiResponse}</p>
+          {responseReceived ? (
+            <p>{openaiResponse}</p>
+          ) : (
+            <div className="flex justify-center items-center">
+              <div className="loader-container">
+                <CircleLoader
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="circles-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              </div>
+              <span className="ml-2">Loading...</span>
+            </div>
+          )}
         </div>
       </div>
       <div className=" flex mt-10 justify-center">
         <button
-          className="bg-white text-[32px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-6 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-white text-[22px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}
         >
           Atrás
-
         </button>
       </div>
     </div>

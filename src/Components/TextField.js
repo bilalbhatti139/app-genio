@@ -37,7 +37,31 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     // Call the function when the component mounts or when questions are updated
     getRandomQuestions();
   }, [questions]);
+  // formatted
+  const formatResponse = (response) => {
+    const maxWordsPerLine = 7;
 
+    // Replace numbers followed by a hyphen with a newline
+    let formattedResponse = response.replace(/^(\d+)/gm, "\n$1");
+
+    // Split the response into lines
+    const lines = formattedResponse.split("\n");
+
+    // Ensure each line has a maximum of maxWordsPerLine words
+    const formattedLines = lines.map((line) => {
+      const words = line.split(" ");
+      return words.length > maxWordsPerLine
+        ? words.slice(0, maxWordsPerLine).join(" ") +
+            "\n" +
+            words.slice(maxWordsPerLine).join(" ")
+        : line;
+    });
+
+    // Join lines back together
+    formattedResponse = formattedLines.join("\n");
+
+    return formattedResponse;
+  };
   // Handle form submission logic
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +100,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
     // Prepare the prompt for OpenAI
     const prompt = `
-    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto, tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso.
+ Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Para indicar el salto de línea, introduce el carácter '\n'.
     ${questions
       .map(
         (question, index) => `${question}:${formData[`question-${index + 1}`]}`
@@ -98,7 +122,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
         `https://api.openai.com/v1/engines/${engine}/completions`,
         {
           prompt,
-          max_tokens: 400,
+          max_tokens: 700,
         },
         {
           headers: {
@@ -109,9 +133,11 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       );
 
       // Handle the OpenAI response
-      const openaiResponse = response.data.choices[0].text.trim();
-      setResponse(openaiResponse);
-      console.log("response", openaiResponse);
+      let openaiResponse = response.data.choices[0].text.trim();
+      const formattedResponse = formatResponse(openaiResponse);
+
+      setResponse(formattedResponse);
+      console.log("response", formattedResponse);
 
       // Continue with the rest of your logic
     } catch (error) {
@@ -149,13 +175,13 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
       <div className="mb-6 gap-[10px] flex justify-center">
         <button
-          className="bg-white text-[32px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-6 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-white text-[22px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}
         >
           Atrás
         </button>
         <button
-          className="bg-[#696969] text-[32px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-2 px-4 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-[#696969] text-[22px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-1 px-1 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Invocar al genio

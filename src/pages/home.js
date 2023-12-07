@@ -53,7 +53,6 @@ const Home = () => {
         buttonStyle={{ color: "#4e503b", fontSize: "10px" }}
         expires={150}
         containerClasses="my-custom-cookie-consent"
-
       >
         This website uses cookies to enhance the user experience.
       </CookieConsent>
@@ -61,7 +60,7 @@ const Home = () => {
         className="relative h-[200px] bg-cover bg-center"
         style={{ backgroundImage: `url(${genieImage})` }}
       >
-        <div className="flex justify-center items-center flex-col">
+        <div className="flex justify-center   hover:cursor-pointer items-center flex-col">
           <img
             src={genieImage2}
             alt="Genie Logo"
