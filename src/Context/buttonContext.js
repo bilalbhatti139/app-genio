@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const ButtonTextContext = createContext();
 
 export const ButtonTextProvider = ({ children }) => {
-  const [buttonText, setButtonText] = useState("No lo tengo claro");
+  const [buttonText, setButtonText] = useState("Otro");
 
   const updateButtonText = (newText) => {
     setButtonText(newText);

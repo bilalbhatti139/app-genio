@@ -158,7 +158,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           className="bg-[#696969] text-[32px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-2 px-4 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Enviar
+          Invocar al genio
         </button>
       </div>
     </form>
