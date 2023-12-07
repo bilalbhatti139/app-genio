@@ -21,7 +21,7 @@ const Step3 = ({ onMoveBackward }) => {
           <img src={genieImage} alt="Your Alt Text" />
         </div>
 
-        <div className="md:w-1/2 sm:w-[100%] w-[100%]  text-[16px] font-[500] text-[#696969] leading-[36px]">
+        <div className="md:w-1/2 sm:w-[100%] w-[100%] whitespace-normal text-[16px] font-[500] text-[#696969] leading-[36px]">
           {responseReceived ? (
             <p>{openaiResponse}</p>
           ) : (
