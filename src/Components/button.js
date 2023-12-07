@@ -88,7 +88,7 @@ const Button = ({
 
 const ButtonList = ({ onMoveForward }) => {
   const { buttonText, updateButtonText } = useButtonText();
-  const { updateButtonsText, savePressedButtonText, pressedButtonText ,buttonsText} =
+  const { updateButtonsText, savePressedButtonText} =
     usePresssedButtonsText();
   const buttonsData = [
     { text: "Libros", borderRadius: 5, Color: "#5082c8" },
