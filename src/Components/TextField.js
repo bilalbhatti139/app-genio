@@ -38,7 +38,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   }, [questions]);
   // formatted
   const formatResponse = (response) => {
-    const maxWordsPerLine = 6;
+    const maxWordsPerLine = 7;
 
     let formattedResponse = response.replace(/^(\d+)/gm, "\n$1");
 
@@ -69,6 +69,10 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
     return formattedLines;
   };
+
+  // Example usage
+
+  // Render the formattedResponse in your component
 
   // Handle form submission logic
   const handleInputChange = (e) => {
@@ -108,21 +112,21 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
     // Prepare the prompt for OpenAI
     const prompt = `
-    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=Libros&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor.
-    {question-1}:{answer-1}
-    {question-2}:{answer-2}
-    {question-3}:{answer-3}
-    {question-4}:{answer-4}
-    {question-5}:{answer-5}
-    La estructura de tu respuesta tiene que ser un JSON así:
-    {
-         "poema": ...,
-         "titulo1": ...,
-         "descr1": ...,
-         "enlace1": ...,
-         "titulo2": ...,
-    ...
-    }
+    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec={{category}}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
+{question-1}:{answer-1}
+{question-2}:{answer-2}
+{question-3}:{answer-3}
+{question-4}:{answer-4}
+{question-5}:{answer-5}
+La estructura de tu respuesta tiene que ser un JSON así:
+{
+     "poema": ...,
+     "titulo1": ...,
+     "descr1": ...,
+     "enlace1": ...,
+     "titulo2": ...,
+...
+}
     ${questions
       .map(
         (question, index) => `${question}:${formData[`question-${index + 1}`]}`
@@ -160,6 +164,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
       setResponse(formattedResponse);
       console.log("Response", openaiResponse);
+      // let data=JSON.stringify(openaiResponse, null, 2);
 
       // Continue with the rest of your logic
     } catch (error) {
