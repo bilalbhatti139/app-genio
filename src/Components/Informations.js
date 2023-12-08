@@ -3,7 +3,6 @@ import React from "react";
 const Informations = ({ json }) => {
   return (
     <div>
-        <p>{json.poema}</p>
       {Object.keys(json).map((key) => (
         <div key={key}>
           {key === "poema" && (
