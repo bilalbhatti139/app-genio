@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CircleLoader } from "react-spinners";
 import genieImage from "../assets/pic3.jpg";
 import { useOpenAI } from "../Context/apiContext";
+import Informations from "../Components/Informations";
 
 const Step3 = ({ onMoveBackward }) => {
   const { openaiResponse } = useOpenAI();
@@ -23,7 +24,9 @@ const Step3 = ({ onMoveBackward }) => {
 
         <div className="md:w-1/2 sm:w-[100%] w-[100%] whitespace-normal text-[16px] font-[500] text-[#696969] leading-[36px]">
           {responseReceived ? (
-            <p>{openaiResponse}</p>
+            <><p>{openaiResponse?.descr1}</p><Informations json={openaiResponse} /></>
+
+           
           ) : (
             <div className="flex justify-center items-center">
               <div className="loader-container">

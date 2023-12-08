@@ -163,10 +163,24 @@ La estructura de tu respuesta tiene que ser un JSON así:
       const formattedResponse = formatResponse(openaiResponse);
 
       setResponse(formattedResponse);
-      console.log("Response", openaiResponse);
-      // let data=JSON.stringify(openaiResponse, null, 2);
 
-      // Continue with the rest of your logic
+      function convertStringToJson(apiResponse) {
+        try {
+          // Try parsing the JSON directly
+          const cleanedJsonString = apiResponse.replace(/[\x00-\x1F\x7F]/g, "");
+
+          const jsonObject = JSON.parse(cleanedJsonString);
+
+          return jsonObject;
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          return null;
+        }
+      }
+      const jsonobj = convertStringToJson(openaiResponse);
+      setResponse(jsonobj);
+
+      console.log("Response", openaiResponse);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
