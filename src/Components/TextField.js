@@ -112,21 +112,31 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
     // Prepare the prompt for OpenAI
     const prompt = `
-    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec={{category}}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
-{question-1}:{answer-1}
-{question-2}:{answer-2}
-{question-3}:{answer-3}
-{question-4}:{answer-4}
-{question-5}:{answer-5}
-La estructura de tu respuesta tiene que ser un JSON así:
-{
-     "poema": ...,
-     "titulo1": ...,
-     "descr1": ...,
-     "enlace1": ...,
-     "titulo2": ...,
-...
-}
+    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
+    {question-1}:{answer-1}
+    {question-2}:{answer-2}
+    {question-3}:{answer-3}
+    {question-4}:{answer-4}
+    {question-5}:{answer-5}
+    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono:
+    {
+         "poema": ...,
+         "titulo1": ...,
+         "descr1": ...,
+         "enlace1": ...,
+         "titulo2": ...,
+         "descr2": ...,
+         "enlace2": ...,
+         "titulo3": ...,
+         "descr3": ...,
+         "enlace3": ...,
+         "titulo4": ...,
+         "descr4": ...,
+         "enlace4": ...,
+         "titulo5": ...,
+         "descr5": ...,
+         "enlace5": ...
+    }
     ${questions
       .map(
         (question, index) => `${question}:${formData[`question-${index + 1}`]}`
@@ -148,7 +158,7 @@ La estructura de tu respuesta tiene que ser un JSON así:
         `https://api.openai.com/v1/engines/${engine}/completions`,
         {
           prompt,
-          max_tokens: 700,
+          max_tokens: 1200,
         },
         {
           headers: {
@@ -174,6 +184,11 @@ La estructura de tu respuesta tiene que ser un JSON así:
           return jsonObject;
         } catch (error) {
           console.error("Error parsing JSON:", error);
+          console.error(
+            "Input JSON substring:",
+            apiResponse.substring(1350, 1370)
+          );
+
           return null;
         }
       }
