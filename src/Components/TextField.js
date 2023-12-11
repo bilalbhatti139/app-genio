@@ -112,7 +112,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
     // Prepare the prompt for OpenAI
     const prompt = `
-    Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
+    Eres un gran asesor con 20 años de experiencia, y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
     {question-1}:{answer-1}
     {question-2}:{answer-2}
     {question-3}:{answer-3}
@@ -137,6 +137,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
          "descr5": ...,
          "enlace5": ...
     }
+  
     ${questions
       .map(
         (question, index) => `${question}:${formData[`question-${index + 1}`]}`

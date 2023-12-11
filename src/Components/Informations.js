@@ -9,15 +9,12 @@ const Informations = ({ json }) => {
         <p>
           <em>{json?.poema}</em>
         </p>
-        <br />
       </div>
 
       {/* Render each book information only once */}
       <div>
-        <p>{json?.titulo1}</p>
-        <br />
+        <p className="font-bold">{json?.titulo1}</p>
         <p>{json?.descr1}</p>
-        <br />
         <p>
           <a
             href={json?.enlace1}
@@ -31,10 +28,8 @@ const Informations = ({ json }) => {
       </div>
 
       <div>
-        <p>{json?.titulo2}</p>
-        <br />
+        <p className="font-bold">{json?.titulo2}</p>
         <p>{json?.descr2}</p>
-        <br />
         <p>
           <a
             href={json?.enlace2}
@@ -48,10 +43,8 @@ const Informations = ({ json }) => {
       </div>
 
       <div>
-        <p>{json?.titulo3}</p>
-        <br />
+        <p className="font-bold">{json?.titulo3}</p>
         <p>{json?.descr3}</p>
-        <br />
         <p>
           <a
             href={json?.enlace3}
@@ -65,10 +58,8 @@ const Informations = ({ json }) => {
       </div>
 
       <div>
-        <p>{json?.titulo4}</p>
-        <br />
+        <p className="font-bold">{json?.titulo4}</p>
         <p>{json?.descr4}</p>
-        <br />
         <p>
           <a
             href={json?.enlace4}
@@ -82,10 +73,8 @@ const Informations = ({ json }) => {
       </div>
 
       <div>
-        <p>{json?.titulo5}</p>
-        <br />
+        <p className="font-bold">{json?.titulo5}</p>
         <p>{json?.descr5}</p>
-        <br />
         <p>
           <a
             href={json?.enlace5}
