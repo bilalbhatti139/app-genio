@@ -88,7 +88,22 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   // Replace 'YOUR_API_KEY' with your actual OpenAI API key
   const apiKey = "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";
   const engine = "text-davinci-003"; // GPT-3.5-turbo
+  function convertStringToJson(apiResponse) {
+    console.log("CONSOLE");
+    try {
+      // Try parsing the JSON directly
+      const cleanedJsonString = apiResponse.replace(/[\x00-\x1F\x7F]/g, "");
 
+      const jsonObject = JSON.parse(cleanedJsonString);
+
+      return jsonObject;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      console.error("Input JSON substring:", apiResponse.substring(1350, 1370));
+
+      return null;
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit();
@@ -118,7 +133,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     {question-3}:{answer-3}
     {question-4}:{answer-4}
     {question-5}:{answer-5}
-    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono:
+    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo el JSON:
     {
          "poema": ...,
          "titulo1": ...,
@@ -137,7 +152,6 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
          "descr5": ...,
          "enlace5": ...
     }
-  
     ${questions
       .map(
         (question, index) => `${question}:${formData[`question-${index + 1}`]}`
@@ -175,24 +189,6 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
       setResponse(formattedResponse);
 
-      function convertStringToJson(apiResponse) {
-        try {
-          // Try parsing the JSON directly
-          const cleanedJsonString = apiResponse.replace(/[\x00-\x1F\x7F]/g, "");
-
-          const jsonObject = JSON.parse(cleanedJsonString);
-
-          return jsonObject;
-        } catch (error) {
-          console.error("Error parsing JSON:", error);
-          console.error(
-            "Input JSON substring:",
-            apiResponse.substring(1350, 1370)
-          );
-
-          return null;
-        }
-      }
       const jsonobj = convertStringToJson(openaiResponse);
       setResponse(jsonobj);
 
@@ -201,7 +197,83 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       console.error("Error calling OpenAI API:", error);
     }
   };
+  const processChatGPTRequest = async () => {
+    const apiKey = "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";
+    const engine = "text-davinci-003"; // GPT-3.5-turbo
+    try {
+      // Make the initial request to OpenAI API
+      const prompt = `
+      Eres un gran asesor con 20 años de experiencia, y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec ${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
+      {question-1}:{answer-1}
+      {question-2}:{answer-2}
+      {question-3}:{answer-3}
+      {question-4}:{answer-4}
+      {question-5}:{answer-5}
+      La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo el JSON:
+      {
+           "poema": ...,
+           "titulo1": ...,
+           "descr1": ...,
+           "enlace1": ...,
+           "titulo2": ...,
+           "descr2": ...,
+           "enlace2": ...,
+           "titulo3": ...,
+           "descr3": ...,
+           "enlace3": ...,
+           "titulo4": ...,
+           "descr4": ...,
+           "enlace4": ...,
+           "titulo5": ...,
+           "descr5": ...,
+           "enlace5": ...
+      }
+      ${questions
+        .map(
+          (question, index) =>
+            `${question}:${formData[`question-${index + 1}`]}`
+        )
+        .join("\n")}
+    `;
 
+      try {
+        // Make a request to the OpenAI API
+        const response = await axios.post(
+          `https://api.openai.com/v1/engines/${engine}/completions`,
+          {
+            prompt,
+            max_tokens: 1200,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // Handle the OpenAI response
+        let openaiResponse = response.data.choices[0].text.trim();
+        const formattedResponse = formatResponse(openaiResponse);
+
+        setResponse(formattedResponse);
+
+        // Process the response and convert it to JSON
+        const jsonObject = await convertStringToJson(response);
+
+        // Return the JSON object
+        return jsonObject;
+      } catch (error) {
+        console.error("Error processing chat request:", error);
+
+        // If an error occurs, you may choose to retry or handle it accordingly
+        // Here, we'll retry the entire process by calling processChatGPTRequest again
+        return processChatGPTRequest();
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
       <h1 className="font-[600] text-[32px] text-[#5082C8]">
