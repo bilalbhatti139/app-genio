@@ -100,6 +100,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     } catch (error) {
       console.error("Error parsing JSON:", error);
       console.error("Input JSON substring:", apiResponse.substring(1350, 1370));
+      processChatGPTRequest()
 
       return null;
     }
@@ -268,7 +269,6 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
         // If an error occurs, you may choose to retry or handle it accordingly
         // Here, we'll retry the entire process by calling processChatGPTRequest again
-        return processChatGPTRequest();
       }
     } catch (err) {
       console.log("err", err);
