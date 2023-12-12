@@ -86,15 +86,15 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   };
 
   // Replace 'YOUR_API_KEY' with your actual OpenAI API key
-  const apiKey = "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";
-  const engine = "text-davinci-003"; // GPT-3.5-turbo
+  const apiKey = "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";
+  const engine = "gpt-3.5-turbo";
   function convertStringToJson(apiResponse) {
     console.log("CONSOLE");
     try {
       // Try parsing the JSON directly
-      const cleanedJsonString = apiResponse.replace(/[\x00-\x1F\x7F]/g, "");
+      // const cleanedJsonString = apiResponse.replace(/[\x00-\x1F\x7F]/g, "");
 
-      const jsonObject = JSON.parse(cleanedJsonString);
+      const jsonObject = JSON.parse(apiResponse);
 
       return jsonObject;
     } catch (error) {
@@ -105,12 +105,13 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       return null;
     }
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit();
 
     const prompt = `
-    Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+    Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente {{category}}.
     {question-1}:{answer-1}
     {question-2}:{answer-2}
     {question-3}:{answer-3}
@@ -119,7 +120,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
     {
          "poema": ...,
-         "recomendacion1": ...,
+         "titulo1": ...,
          "producto1": ...,
          "recomendacion2": ...,
          ...
@@ -134,9 +135,19 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     try {
       // Make a request to the OpenAI API
       const response = await axios.post(
-        `https://api.openai.com/v1/engines/${engine}/completions`,
+        `https://api.openai.com/v1/chat/completions`,
         {
-          prompt,
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
           max_tokens: 1200,
         },
         {
@@ -148,26 +159,40 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       );
 
       // Handle the OpenAI response
-      let openaiResponse = response.data.choices[0].text.trim();
+
+      // Log the full OpenAI response for debugging or saving purposes
+
+      // Access and set the assistant's response content if needed
+      const openaiResponse =
+        response.data.choices[0].message.content.trim();
+      console.log("tv", openaiResponse);
       const formattedResponse = formatResponse(openaiResponse);
 
+      // Set the formatted response
       setResponse(formattedResponse);
+      const jsonObject = JSON.parse(openaiResponse);
+      console.log("jj", jsonObject);
+      setResponse(jsonObject);
 
-      const jsonobj = convertStringToJson(openaiResponse);
-      setResponse(jsonobj);
+      // Convert the string response to JSON
+      // const jsonobj = convertStringToJson(formattedResponse);
 
+      // // Set the JSON response
+      // setResponse(jsonobj);
+
+      // Log the response
       console.log("Response", openaiResponse);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
   };
   const processChatGPTRequest = async () => {
-    const apiKey = "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";
-    const engine = "text-davinci-003"; // GPT-3.5-turbo
+    const apiKey = "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";
+    const engine = "gpt-3.5-turbo";
     try {
       // Make the initial request to OpenAI API
       const prompt = `
-      Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+      Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente {{category}}.
       {question-1}:{answer-1}
       {question-2}:{answer-2}
       {question-3}:{answer-3}
@@ -176,7 +201,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
       {
            "poema": ...,
-           "recomendacion1": ...,
+           "titulo1": ...,
            "producto1": ...,
            "recomendacion2": ...,
            ...
@@ -189,34 +214,57 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
         .join("\n")}
     `;
 
-      try {
-        // Make a request to the OpenAI API
-        const response = await axios.post(
-          `https://api.openai.com/v1/engines/${engine}/completions`,
-          {
-            prompt,
-            max_tokens: 1200,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-              "Content-Type": "application/json",
+    try {
+      // Make a request to the OpenAI API
+      const response = await axios.post(
+        `https://api.openai.com/v1/chat/completions`,
+        {
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
             },
-          }
-        );
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          max_tokens: 1200,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-        // Handle the OpenAI response
-        let openaiResponse = response.data.choices[0].text.trim();
-        const formattedResponse = formatResponse(openaiResponse);
+      // Handle the OpenAI response
 
-        setResponse(formattedResponse);
+      // Log the full OpenAI response for debugging or saving purposes
 
-        // Process the response and convert it to JSON
-        const jsonObject = await convertStringToJson(response);
+      // Access and set the assistant's response content if needed
+      const openaiResponse =
+        response.data.choices[0].message.content.trim();
+      console.log("tv", openaiResponse);
+      const formattedResponse = formatResponse(openaiResponse);
 
-        // Return the JSON object
-        return jsonObject;
-      } catch (error) {
+      // Set the formatted response
+      setResponse(formattedResponse);
+      const jsonObject = JSON.parse(openaiResponse);
+      console.log("jj", jsonObject);
+      setResponse(jsonObject);
+
+      // Convert the string response to JSON
+      // const jsonobj = convertStringToJson(formattedResponse);
+
+      // // Set the JSON response
+      // setResponse(jsonobj);
+
+      // Log the response
+      console.log("Response", openaiResponse);
+    }  catch (error) {
         console.error("Error processing chat request:", error);
 
         // If an error occurs, you may choose to retry or handle it accordingly
