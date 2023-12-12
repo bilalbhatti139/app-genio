@@ -14,7 +14,7 @@ const Informations = ({ json }) => {
         return (
           <div key={productKey} className="mt-4">
              <p>
-              <span className="font-bold">{json[productKey]}</span>: {json[descriptionKey]}
+              <span className="font-bold">{json[productKey]}:</span>{json[descriptionKey]}
             </p>
             <a
               style={{ wordBreak: "break-word" }}
