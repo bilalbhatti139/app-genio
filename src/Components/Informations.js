@@ -10,7 +10,7 @@ const Informations = ({ json }) => {
       {/* Render product recommendations and links separately for each product */}
       {Array.from({ length: 5 }, (_, i) => {
         const productKey = `titulo${i + 1}`;
-        const descriptionKey = `producto${i + 1}`;
+        const descriptionKey = `descripcion${i + 1}`;
         return (
           <div key={productKey} className="mt-4">
              <p>

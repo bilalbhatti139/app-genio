@@ -141,7 +141,21 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           messages: [
             {
               role: "system",
-              content: "You are a helpful assistant.",
+              content: `Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
+              user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+              {question-1}:{answer-1}
+              {question-2}:{answer-2}
+              {question-3}:{answer-3}
+              {question-4}:{answer-4}
+              {question-5}:{answer-5}
+              La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
+              {
+                   "poema": ...,
+                   "titulo1": ...,
+                   "descripcion1": ...,
+                   "titulo2": ...,
+                   ...
+              }`,
             },
             {
               role: "user",
@@ -223,7 +237,21 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           messages: [
             {
               role: "system",
-              content: "You are a helpful assistant.",
+              content: `Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
+              user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+              {question-1}:{answer-1}
+              {question-2}:{answer-2}
+              {question-3}:{answer-3}
+              {question-4}:{answer-4}
+              {question-5}:{answer-5}
+              La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
+              {
+                   "poema": ...,
+                   "titulo1": ...,
+                   "descripcion1": ...,
+                   "titulo2": ...,
+                   ...
+              }`,
             },
             {
               role: "user",
