@@ -100,7 +100,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     } catch (error) {
       console.error("Error parsing JSON:", error);
       console.error("Input JSON substring:", apiResponse.substring(1350, 1370));
-      processChatGPTRequest()
+      processChatGPTRequest();
 
       return null;
     }
@@ -109,49 +109,20 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     e.preventDefault();
     onSubmit();
 
-    // Static data for demonstration purposes
-    // const staticCategory = "electronics";
-    // const staticQuestions = [
-    //   "What is your favorite gadget?",
-    //   "How often do you use technology?",
-    //   "Which brand do you prefer for electronics?",
-    //   "Do you like smart home devices?",
-    //   "Any specific feature you look for in electronics?"
-    // ];
-    // const staticAnswers = [
-    //   "Smartphones",
-    //   "Every day",
-    //   "Sony",
-    //   "Yes",
-    //   "Long battery life"
-    // ];
-
-    // Prepare the prompt for OpenAI
     const prompt = `
-    Eres un gran asesor con 20 años de experiencia, y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
+    Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
     {question-1}:{answer-1}
     {question-2}:{answer-2}
     {question-3}:{answer-3}
     {question-4}:{answer-4}
     {question-5}:{answer-5}
-    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo el JSON:
+    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
     {
          "poema": ...,
-         "titulo1": ...,
-         "descr1": ...,
-         "enlace1": ...,
-         "titulo2": ...,
-         "descr2": ...,
-         "enlace2": ...,
-         "titulo3": ...,
-         "descr3": ...,
-         "enlace3": ...,
-         "titulo4": ...,
-         "descr4": ...,
-         "enlace4": ...,
-         "titulo5": ...,
-         "descr5": ...,
-         "enlace5": ...
+         "recomendacion1": ...,
+         "producto1": ...,
+         "recomendacion2": ...,
+         ...
     }
     ${questions
       .map(
@@ -159,14 +130,6 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       )
       .join("\n")}
   `;
-    // const prompt = `
-    //   Eres un gran asesor con 20 años de experiencia, y tienes que actuar como si fueras el genio de la lámpara de Aladín para dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, acompañado de 5 productos recomendados. Para cada producto, tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec=${staticCategory}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso.
-    //   ${staticQuestions[0]}:${staticAnswers[0]}
-    //   ${staticQuestions[1]}:${staticAnswers[1]}
-    //   ${staticQuestions[2]}:${staticAnswers[2]}
-    //   ${staticQuestions[3]}:${staticAnswers[3]}
-    //   ${staticQuestions[4]}:${staticAnswers[4]}
-    // `;
 
     try {
       // Make a request to the OpenAI API
@@ -204,30 +167,19 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     try {
       // Make the initial request to OpenAI API
       const prompt = `
-      Eres un gran asesor con 20 años de experiencia, y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar el título, una breve descripción y un enlace. La estructura del enlace tiene que ser esta https://www.todocoleccion.net/buscador?bu={nombre-del-producto}&sec ${buttonsText}&O=menos . Reemplaza la variable {nombre-del-producto} en cada caso. Devuelve únicamente el objeto JSON. No incluyas ningún otro tipo de información en tu respuesta, por favor. Tienes que recomendar obligatoriamente ${buttonsText}.
+      Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
       {question-1}:{answer-1}
       {question-2}:{answer-2}
       {question-3}:{answer-3}
       {question-4}:{answer-4}
       {question-5}:{answer-5}
-      La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo el JSON:
+      La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
       {
            "poema": ...,
-           "titulo1": ...,
-           "descr1": ...,
-           "enlace1": ...,
-           "titulo2": ...,
-           "descr2": ...,
-           "enlace2": ...,
-           "titulo3": ...,
-           "descr3": ...,
-           "enlace3": ...,
-           "titulo4": ...,
-           "descr4": ...,
-           "enlace4": ...,
-           "titulo5": ...,
-           "descr5": ...,
-           "enlace5": ...
+           "recomendacion1": ...,
+           "producto1": ...,
+           "recomendacion2": ...,
+           ...
       }
       ${questions
         .map(

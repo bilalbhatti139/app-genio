@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const Informations = ({ json }) => {
@@ -6,85 +5,74 @@ const Informations = ({ json }) => {
     <div>
       {/* Render the poem at the beginning */}
       <div>
-        <p>
-          <em>{json?.poema}</em>
-        </p>
-      </div>
-
-      {/* Render each book information only once */}
-      <div>
-        <p className="font-bold">{json?.titulo1}</p>
-        <p>{json?.descr1}</p>
-        <p>
-          <a
-            href={json?.enlace1}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {json?.enlace1}
-          </a>
-        </p>
+        <p>{json["poema"]}</p>
         <br />
       </div>
 
+      {/* Render product recommendations and links separately for each product */}
       <div>
-        <p className="font-bold">{json?.titulo2}</p>
-        <p>{json?.descr2}</p>
+        <p>
+          {json["producto1"]}: {json["recomendacion1"]}
+        </p>
         <p>
           <a
-            href={json?.enlace2}
+            href={`https://www.todocoleccion.net/buscador?bu=%7B${json["producto1"]}%7D&sec=%7B%7B${json["recomendacion1"]}%7D%7D&O=menos`}
             target="_blank"
             rel="noopener noreferrer"
-          >
-            {json?.enlace2}
-          </a>
+          ></a>
         </p>
-        <br />
       </div>
 
       <div>
-        <p className="font-bold">{json?.titulo3}</p>
-        <p>{json?.descr3}</p>
+        <p>
+          {json["producto2"]}: {json["recomendacion2"]}
+        </p>
         <p>
           <a
-            href={json?.enlace3}
+            href={`https://www.todocoleccion.net/buscador?bu=%7B${json["producto2"]}%7D&sec=%7B%7B${json["recomendacion2"]}%7D%7D&O=menos`}
             target="_blank"
             rel="noopener noreferrer"
-          >
-            {json?.enlace3}
-          </a>
+          ></a>
         </p>
-        <br />
       </div>
 
       <div>
-        <p className="font-bold">{json?.titulo4}</p>
-        <p>{json?.descr4}</p>
+        <p>
+          {json["producto3"]}: {json["recomendacion3"]}
+        </p>
         <p>
           <a
-            href={json?.enlace4}
+            href={`https://www.todocoleccion.net/buscador?bu=%7B${json["producto3"]}%7D&sec=%7B%7B${json["recomendacion3"]}%7D%7D&O=menos`}
             target="_blank"
             rel="noopener noreferrer"
-          >
-            {json?.enlace4}
-          </a>
+          ></a>
         </p>
-        <br />
       </div>
 
       <div>
-        <p className="font-bold">{json?.titulo5}</p>
-        <p>{json?.descr5}</p>
+        <p>
+          {json["producto4"]}: {json["recomendacion4"]}
+        </p>
         <p>
           <a
-            href={json?.enlace5}
+            href={`https://www.todocoleccion.net/buscador?bu=%7B${json["producto4"]}%7D&sec=%7B%7B${json["recomendacion4"]}%7D%7D&O=menos`}
             target="_blank"
             rel="noopener noreferrer"
-          >
-            {json?.enlace5}
-          </a>
+          ></a>
         </p>
-        <br />
+      </div>
+
+      <div>
+        <p>
+          {json["producto5"]}: {json["recomendacion5"]}
+        </p>
+        <p>
+          <a
+            href={`https://www.todocoleccion.net/buscador?bu=%7B${json["producto5"]}%7D&sec=%7B%7B${json["recomendacion5"]}%7D%7D&O=menos`}
+            target="_blank"
+            rel="noopener noreferrer"
+          ></a>
+        </p>
       </div>
     </div>
   );
