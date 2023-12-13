@@ -1,6 +1,9 @@
 import React from "react";
+import { usePresssedButtonsText } from "../Context/buttonForwordContext";
 
 const Informations = ({ json }) => {
+  const { buttonsText } = usePresssedButtonsText();
+
   return (
     <div>
       {/* Render the poem at the beginning */}
@@ -13,16 +16,18 @@ const Informations = ({ json }) => {
         const descriptionKey = `descripcion${i + 1}`;
         return (
           <div key={productKey} className="mt-4">
-             <p>
-              <span className="font-bold">{json[productKey]}:</span>{json[descriptionKey]}
+            <p>
+              <span className="font-bold">{`${json[productKey]}:`}</span>{" "}
+              {json[descriptionKey]}
             </p>
+
             <a
               style={{ wordBreak: "break-word" }}
-              href={`https://www.todocoleccion.net/buscador?bu=%7B${json[productKey]}%7D&sec=%7B%7B{{category}}%7D%7D&O=menos`}
+              href={`https://www.todocoleccion.net/buscador?bu=%7B${json[productKey]}%7D&sec=%7B%7B${buttonsText}%7D%7D&O=menos`}
               target="_blank"
               rel="noopener noreferrer"
             >
-             Vermas
+              Ver más
             </a>
           </div>
         );
