@@ -14,16 +14,18 @@ const Informations = ({ json }) => {
       {Array.from({ length: 5 }, (_, i) => {
         const productKey = `titulo${i + 1}`;
         const descriptionKey = `descripcion${i + 1}`;
+        const encodedProduct = json[productKey].replace(/ /g, "+");
+
         return (
           <div key={productKey} className="mt-4">
             <p>
-              <span className="font-bold">{`${json[productKey]}:`}</span>{" "}
+              <span className="font-bold">{`${json[productKey]}:`}</span>
               {json[descriptionKey]}
             </p>
 
             <a
               style={{ wordBreak: "break-word" }}
-              href={`https://www.todocoleccion.net/buscador?bu=%7B${json[productKey]}%7D&sec=%7B%7B${buttonsText}%7D%7D&O=menos`}
+              href={`https://www.todocoleccion.net/buscador?bu=${encodedProduct}&sec=${buttonsText}&O=menos`}
               target="_blank"
               rel="noopener noreferrer"
             >
