@@ -19,7 +19,7 @@ const Informations = ({ json }) => {
         return (
           <div key={productKey} className="mt-4">
             <p>
-              <span className="font-bold">{`${json[productKey]}:`}</span>
+              <span className="font-bold">{`${json[productKey]}: `}</span>
               {json[descriptionKey]}
             </p>
 
