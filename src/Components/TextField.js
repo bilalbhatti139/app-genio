@@ -305,7 +305,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
       <h1 className="font-[600] text-[32px] text-[#5082C8]">
-        ¡GENIAL! VAMOS A BUSCAR {buttonsText}
+        ¡GENIAL! VAMOS A BUSCAR {buttonsText.toUpperCase()}
       </h1>
       {selectedQuestions.map((question, index) => (
         <div key={index} className="mb-4">
@@ -338,7 +338,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           Atrás
         </button>
         <button
-          className="bg-[#696969] text-[22px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-1 px-1 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-[#009F3C] text-[22px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-1 px-1 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Invocar al genio

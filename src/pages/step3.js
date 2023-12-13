@@ -5,9 +5,13 @@ import { useOpenAI } from "../Context/apiContext";
 import Informations from "../Components/Informations";
 
 const Step3 = ({ onMoveBackward }) => {
-  const { openaiResponse } = useOpenAI();
+  const { openaiResponse,setResponse } = useOpenAI();
   const [responseReceived, setResponseReceived] = useState(false);
-
+  useEffect(() => {
+    return () => {
+      setResponse(null);
+    };
+  }, []);
   useEffect(() => {
     if (openaiResponse) {
       // If openaiResponse is truthy, set responseReceived to true
@@ -28,12 +32,12 @@ const Step3 = ({ onMoveBackward }) => {
 
            
           ) : (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center h-full items-center">
               <div className="loader-container">
                 <CircleLoader
                   height="80"
                   width="80"
-                  color="#4fa94d"
+                  color="#9c69ae"
                   ariaLabel="circles-loading"
                   wrapperStyle={{}}
                   wrapperClass=""

@@ -6,7 +6,7 @@ export const ButtonTextProvider = ({ children }) => {
   const [buttonText, setButtonText] = useState("Otro");
 
   const updateButtonText = (newText) => {
-    setButtonText(newText);
+    setButtonText(newText.toUpperCase());
   };
 
   return (
