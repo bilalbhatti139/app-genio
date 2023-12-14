@@ -47,7 +47,7 @@ const Step3 = ({ onMoveBackward }) => {
                   visible={true}
                 />
               </div>
-              {/* <span className="ml-2">Loading...</span> */}
+              <span className="ml-2">Cargando</span>
             </div>
           )}
         </div>
