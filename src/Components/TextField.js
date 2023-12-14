@@ -109,6 +109,37 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit();
+    const systemContent =
+      selectedQuestions.length !== 0
+        ? `Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
+    user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+    {question-1}:{answer-1}
+    {question-2}:{answer-2}
+    {question-3}:{answer-3}
+    {question-4}:{answer-4}
+    {question-5}:{answer-5}
+    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
+    {
+         "poema": ...,
+         "titulo1": ...,
+         "descripcion1": ...,
+         "titulo2": ...,
+         ...
+    }`
+        : ` Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
+    user content: A continuación te voy a pasar lo que nos ha pedido un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+    ${questions
+      .map((question, index) => `${formData[`question-${index + 1}`]}`)
+      .join("\n")}
+  
+    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
+    {
+         "poema": ...,
+         "titulo1": ...,
+         "descripcion1": ...,
+         "titulo2": ...,
+         ...
+    }`;
 
     const prompt = `
     Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente {{category}}.
@@ -141,21 +172,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           messages: [
             {
               role: "system",
-              content: `Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
-              user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
-              {question-1}:{answer-1}
-              {question-2}:{answer-2}
-              {question-3}:{answer-3}
-              {question-4}:{answer-4}
-              {question-5}:{answer-5}
-              La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
-              {
-                   "poema": ...,
-                   "titulo1": ...,
-                   "descripcion1": ...,
-                   "titulo2": ...,
-                   ...
-              }`,
+              content: systemContent,
             },
             {
               role: "user",
@@ -300,33 +317,52 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       console.log("err", err);
     }
   };
+  console.log("formdata",formData);
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
       <h1 className="font-[600] text-[32px] text-[#5082C8]">
         ¡GENIAL! VAMOS A BUSCAR {buttonsText.toUpperCase()}
       </h1>
-      {selectedQuestions.map((question, index) => (
-        <div key={index} className="mb-4">
-          {/* Render your questions and inputs here */}
-          <label
-            className="block text-[#000000] text-[24px] font-[500] mb-2"
-            htmlFor={`question-${index + 1}`}
-          >
-            {question}
-          </label>
-          <input
-            className="shadow text-[#696969] appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id={`question-${index + 1}`}
-            type="text"
-            placeholder={"Escribe aquí tu respuesta . . ."}
-            name={`question-${index + 1}`}
-            value={formData[`question-${index + 1}`] || ""}
-            onChange={(e) => {
-              handleInputChange(e);
-            }}
-          />
-        </div>
-      ))}
+      {selectedQuestions.length === 0
+        ? Array.from({ length: 5 }, (_, index) => (
+            <div key={index} className="mb-8">
+              <input
+                className="shadow text-[#696969] appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id={`question-${index + 1}`}
+                type="text"
+                placeholder={`Escribe aquí tu respuesta ${index + 1} . . .`}
+                name={`question-${index + 1}`}
+                value={formData[`question-${index + 1}`] || ""}
+                onChange={(e) => {
+                  handleInputChange(e);
+                }}
+              />
+            </div>
+          ))
+        : // ... (remaining code)
+
+          selectedQuestions.map((question, index) => (
+            <div key={index} className="mb-4">
+              {/* Render your questions and inputs here */}
+              <label
+                className="block text-[#000000] text-[24px] font-[500] mb-2"
+                htmlFor={`question-${index + 1}`}
+              >
+                {question}
+              </label>
+              <input
+                className="shadow text-[#696969] appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id={`question-${index + 1}`}
+                type="text"
+                placeholder={"Escribe aquí tu respuesta . . ."}
+                name={`question-${index + 1}`}
+                value={formData[`question-${index + 1}`] || ""}
+                onChange={(e) => {
+                  handleInputChange(e);
+                }}
+              />
+            </div>
+          ))}
 
       <div className="mb-6 gap-[10px] flex justify-center">
         <button
