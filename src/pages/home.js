@@ -57,14 +57,14 @@ const Home = () => {
     <div className="flex justify-between min-h-screen flex-col h-[100%]">
       <CookieConsent
         location="bottom"
-        buttonText="Accept"
+        buttonText="Aceptar"
         cookieName="Genie"
         style={{ background: "#2B373B" }}
         buttonStyle={{ color: "#4e503b", fontSize: "10px" }}
         expires={150}
         containerClasses="my-custom-cookie-consent"
       >
-        This website uses cookies to enhance the user experience.
+        Este sitio web utiliza cookies para mejorar la experiencia del usuario.{" "}
       </CookieConsent>
       <div
         className="relative h-[200px] bg-cover bg-center"
@@ -75,7 +75,6 @@ const Home = () => {
             src={genieImage2}
             alt="Genie Logo"
             className="h-[200px]"
-
             id="genieNumber1" // Add an identifier to associate with number 1
             onClick={handleFunc}
           />
