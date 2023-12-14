@@ -88,15 +88,40 @@ const Button = ({
 
 const ButtonList = ({ onMoveForward }) => {
   const { buttonText, updateButtonText } = useButtonText();
-  const { updateButtonsText, savePressedButtonText} =
-    usePresssedButtonsText();
+  const { updateButtonsText, savePressedButtonText } = usePresssedButtonsText();
   const buttonsData = [
-    { text: "Libros", borderRadius: 5, Color: "#5082c8" },
-    { text: "Películas", borderRadius: 5, Color: "#9E49C4" },
-    { text: "Música", borderRadius: 5, Color: "#FFBD59" },
-    { text: "Juguetes", borderRadius: 5, Color: "#D0A3CF" },
-    { text: "Cómics", borderRadius: 5, Color: "#7600A9" },
-    { text: buttonText, borderRadius: 5, Color: "#C38E19", isEditable: true },
+    { text: "Libros", borderRadius: 5, Color: "#5082c8", internal: "libros" },
+    {
+      text: "Películas",
+      borderRadius: 5,
+      Color: "#9E49C4",
+      internal: "coleccionismo-cine",
+    },
+    {
+      text: "Música",
+      borderRadius: 5,
+      Color: "#FFBD59",
+      internal: "musica-discos-vinilos",
+    },
+    {
+      text: "Juegos y Juguetes",
+      borderRadius: 5,
+      Color: "#D0A3CF",
+      internal: "juguetes",
+    },
+    {
+      text: "Cómics",
+      borderRadius: 5,
+      Color: "#7600A9",
+      internal: "tebeos-comics",
+    },
+    {
+      text: buttonText,
+      borderRadius: 5,
+      Color: "#C38E19",
+      isEditable: true,
+      internal: buttonText,
+    },
   ];
 
   const handleEditableTextChange = (event) => {
@@ -127,7 +152,7 @@ const ButtonList = ({ onMoveForward }) => {
                 isEditable={button.isEditable}
                 onChange={handleEditableTextChange}
                 onClick={(e) => {
-                  updateButtonsText(button.text);
+                  updateButtonsText(button.internal);
                   savePressedButtonText();
                   if (onMoveForward) {
                     onMoveForward();

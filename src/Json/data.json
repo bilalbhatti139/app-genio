@@ -1,6 +1,6 @@
 {
   "data": {
-    "Libros": [
+    "libros": [
       "¿Prefieres ficción o no ficción?",
       "¿Quién es tu autor favorito?",
       "¿Libros largos o cortos?",
@@ -30,7 +30,7 @@
       "¿Qué tipo de entorno te resulta más atractivo: urbano, rural, fantástico o futurista?",
       "¿Te gusta descubrir nuevas voces literarias o prefieres seguir a autores ya establecidos?"
     ],
-    "Películas": [
+    "coleccionismo-cine": [
       "¿Tienes un director favorito?",
       "¿Te atraen las películas de ciencia ficción?",
       "¿Películas con trama intrincada o más directas?",
@@ -61,7 +61,7 @@
       "¿Qué emociones te gustaría experimentar mientras ves una película: risas, llanto, miedo o asombro?",
       "¿Te gusta descubrir nuevas producciones cinematográficas o prefieres seguir a directores ya establecidos?"
     ],
-    "Juguetes": [
+    "juguetes": [
       "¿Te atraen los sets de construcción detallados y desafiantes?",
       "¿Prefieres figuras de acción coleccionables con detalles realistas y articulaciones?",
       "¿Te interesa coleccionar figuras de personajes icónicos de películas o series?",
@@ -99,7 +99,7 @@
       "¿Eres fan de los juegos de cartas que requieren estrategia?",
       "¿Prefieres juegos con partidas cortas o largas?"
     ],
-    "Cómics": [
+    "tebeos-comics": [
       "¿Tienes preferencia por cómics de superhéroes, géneros alternativos o independientes?",
       "¿Te interesa más la obra de algún autor o ilustrador específico?",
       "¿Prefieres historias autoconclusivas o sagas más extensas y épicas?",
@@ -124,7 +124,7 @@
       "¿Eres de cómics en blanco y negro o a todo color?",
       "¿Eres fan de los cómics de origen japonés (manga)?"
     ],
-    "Música": [
+    "musica-discos-vinilos": [
       "¿Cuál es tu género musical favorito?",
       "¿Tienes un artista o banda favoritos?",
       "Música clásica o contemporánea?",
