@@ -5,7 +5,7 @@ import { useOpenAI } from "../Context/apiContext";
 import Informations from "../Components/Informations";
 
 const Step3 = ({ onMoveBackward }) => {
-  const { openaiResponse,setResponse } = useOpenAI();
+  const { openaiResponse, setResponse } = useOpenAI();
   const [responseReceived, setResponseReceived] = useState(false);
   useEffect(() => {
     return () => {
@@ -28,9 +28,10 @@ const Step3 = ({ onMoveBackward }) => {
 
         <div className="md:w-1/2 sm:w-[100%] w-[100%] whitespace-normal text-[16px] font-[500] text-[#696969] leading-[36px]">
           {responseReceived ? (
-            <><p>{openaiResponse?.descr1}</p><Informations json={openaiResponse} /></>
-
-           
+            <>
+              <p>{openaiResponse?.descr1}</p>
+              <Informations json={openaiResponse} />
+            </>
           ) : (
             <div className="flex justify-center h-full items-center">
               <div className="loader-container">
@@ -54,7 +55,7 @@ const Step3 = ({ onMoveBackward }) => {
           className="bg-white text-[22px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}
         >
-          Atrás
+          Volver al inicio
         </button>
       </div>
     </div>
