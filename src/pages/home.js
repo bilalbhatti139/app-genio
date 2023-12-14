@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import genieImage from "../assets/1.png";
-import genieImage2 from "../assets/logo2.png";
+import genieImage2 from "../assets/l1.png";
 import Step2 from "../pages/step2";
 import Step3 from "../pages/step3";
 import CustomStepper from "../Components/stepper";
@@ -74,15 +74,16 @@ const Home = () => {
           <img
             src={genieImage2}
             alt="Genie Logo"
-            className="h-[150px]"
+            className="h-[200px]"
+
             id="genieNumber1" // Add an identifier to associate with number 1
             onClick={handleFunc}
           />
-          <div className="text-white text-2xl font-bold">
+          {/* <div className="text-white text-2xl font-bold">
             <h1 className="text-[#ffffff] font-normal text-[42px] font">
               Regalos del Genio
             </h1>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="container mx-auto my-[4.5rem]">

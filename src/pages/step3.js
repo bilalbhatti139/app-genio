@@ -33,7 +33,9 @@ const Step3 = ({ onMoveBackward }) => {
               <Informations json={openaiResponse} />
             </>
           ) : (
-            <div className="flex justify-center h-full items-center">
+            <div className="flex flex-col justify-center h-full items-center">
+              <p className="mb-4 text-[#696969]">Invocar al genio</p>
+
               <div className="loader-container">
                 <CircleLoader
                   height="80"
@@ -45,7 +47,7 @@ const Step3 = ({ onMoveBackward }) => {
                   visible={true}
                 />
               </div>
-              <span className="ml-2">Loading...</span>
+              {/* <span className="ml-2">Loading...</span> */}
             </div>
           )}
         </div>
