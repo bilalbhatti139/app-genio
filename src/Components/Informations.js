@@ -66,6 +66,7 @@ const Informations = ({ json }) => {
             >
               Ver más
             </a>
+            <RandomFarewellMessage className='bg-red-200'/>
           </div>
         );
       })}

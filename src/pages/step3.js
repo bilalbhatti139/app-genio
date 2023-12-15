@@ -56,9 +56,9 @@ const Step3 = ({ onMoveBackward }) => {
           )}
         </div>
       </div>
-      <div className=" flex mt-3 justify-center ">
+      {/* <div className=" flex mt-3 justify-center ">
         <RandomFarewellMessage />
-      </div>
+      </div> */}
 
       <div className=" flex flex-col mt-10 justify-center">
         <button

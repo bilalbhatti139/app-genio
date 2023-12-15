@@ -89,7 +89,6 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const apiKey = "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";
   const engine = "gpt-3.5-turbo";
   function convertStringToJson(apiResponse) {
-    console.log("CONSOLE");
     try {
       // Try parsing the JSON directly
       // const cleanedJsonString = apiResponse.replace(/[\x00-\x1F\x7F]/g, "");
@@ -112,7 +111,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     const systemContent =
       selectedQuestions.length !== 0
         ? `Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
-    user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${"Otro"}.
+    user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
     {question-1}:{answer-1}
     {question-2}:{answer-2}
     {question-3}:{answer-3}
@@ -126,22 +125,11 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
          "titulo2": ...,
          ...
     }`
-        : ` Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
-    user content: A continuación te voy a pasar lo que nos ha pedido un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
-    ${questions
-      .map((question, index) => `${formData[`question-${index + 1}`]}`)
-      .join("\n")}
-  
-    La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
-    {
-         "poema": ...,
-         "titulo1": ...,
-         "descripcion1": ...,
-         "titulo2": ...,
-         ...
-    }`;
+        : ` Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.`;
 
-    const prompt = `
+    const prompt =
+      selectedQuestions.length !== 0
+        ? `
     Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione. A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente {{category}}.
     {question-1}:{answer-1}
     {question-2}:{answer-2}
@@ -161,8 +149,19 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
         (question, index) => `${question}:${formData[`question-${index + 1}`]}`
       )
       .join("\n")}
-  `;
-
+  `
+        : `A continuación te voy a pasar lo que nos ha pedido un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título.
+  ${questions
+    .map((question, index) => `${formData[`question-${index + 1}`]}`)
+    .join("\n")}
+  La estructura de tu respuesta tiene que ser un JSON así SIEMPRE. No incluyas nada extra que no esté en esta estructura que te proporciono. Devuelve solo este JSON con los valores correspondientes:
+  {
+       "poema": ...,
+       "titulo1": ...,
+       "descripcion1": ...,
+       "titulo2": ...,
+       ...
+  }`;
     try {
       // Make a request to the OpenAI API
       const response = await axios.post(
@@ -195,7 +194,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
       // Access and set the assistant's response content if needed
       const openaiResponse = response.data.choices[0].message.content.trim();
-      console.log("tv", openaiResponse);
+      // console.log("tv", openaiResponse);
       const formattedResponse = formatResponse(openaiResponse);
 
       // Set the formatted response
@@ -290,7 +289,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
         // Access and set the assistant's response content if needed
         const openaiResponse = response.data.choices[0].message.content.trim();
-        console.log("tv", openaiResponse);
+        // console.log("tv", openaiResponse);
         const formattedResponse = formatResponse(openaiResponse);
 
         // Set the formatted response
@@ -317,7 +316,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
       console.log("err", err);
     }
   };
-  console.log("formdata",formData);
+  // console.log("formdata", formData);
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
       <h1 className="font-[600] text-[32px] text-[#5082C8]">

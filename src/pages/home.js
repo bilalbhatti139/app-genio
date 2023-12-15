@@ -23,10 +23,15 @@ const Home = () => {
 
   const handleMoveBackward = () => {
     if (activeStep > 0) {
-      setActiveStep(activeStep - 1);
+      // setActiveStep(activeStep - 1);
+      setActiveStep(0)
     }
   };
+  const handleFunc2 = (e) => {
 
+      setActiveStep(0);
+    
+  };
   const handleFunc = (e) => {
     const stepId = e.target.textContent;
 
@@ -76,7 +81,7 @@ const Home = () => {
             alt="Genie Logo"
             className="h-[200px]"
             id="genieNumber1" // Add an identifier to associate with number 1
-            onClick={handleFunc}
+            onClick={handleFunc2}
           />
           {/* <div className="text-white text-2xl font-bold">
             <h1 className="text-[#ffffff] font-normal text-[42px] font">
