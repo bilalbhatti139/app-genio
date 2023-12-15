@@ -30,7 +30,7 @@ const Informations = ({ json }) => {
   //     Color: "#7600A9",
   //     internal: "tebeos-comics",
   //   },
-   
+
   // ];
   // let text='';
   // const isButtonValid = buttonsData.some((button) => button.internal === buttonsText);
@@ -66,10 +66,10 @@ const Informations = ({ json }) => {
             >
               Ver más
             </a>
-            <RandomFarewellMessage className='bg-red-200'/>
           </div>
         );
       })}
+      <RandomFarewellMessage />
     </div>
   );
 };
