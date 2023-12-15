@@ -116,11 +116,11 @@ const ButtonList = ({ onMoveForward }) => {
       internal: "tebeos-comics",
     },
     {
-      text: buttonText,
+      text: 'Otro',
       borderRadius: 5,
       Color: "#C38E19",
-      isEditable: true,
-      internal: buttonText,
+      isEditable: false,
+      internal: 'OTRO',
     },
   ];
 
@@ -150,7 +150,7 @@ const ButtonList = ({ onMoveForward }) => {
                 borderRadius={button.borderRadius}
                 Color={button.Color}
                 isEditable={button.isEditable}
-                onChange={handleEditableTextChange}
+                // onChange={handleEditableTextChange}
                 onClick={(e) => {
                   updateButtonsText(button.internal);
                   savePressedButtonText();

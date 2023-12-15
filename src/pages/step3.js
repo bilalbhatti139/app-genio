@@ -3,6 +3,7 @@ import { CircleLoader } from "react-spinners";
 import genieImage from "../assets/pic3.jpg";
 import { useOpenAI } from "../Context/apiContext";
 import Informations from "../Components/Informations";
+import RandomFarewellMessage from "../Components/Random";
 
 const Step3 = ({ onMoveBackward }) => {
   const { openaiResponse, setResponse } = useOpenAI();
@@ -34,7 +35,10 @@ const Step3 = ({ onMoveBackward }) => {
             </>
           ) : (
             <div className="flex flex-col justify-center h-full items-center">
-              <p className="mb-4 text-[#696969]">Invocar al genio</p>
+              <p className="mb-4 text-[#696969]">
+                ¡Maravilloso! Utilizaré mi encanto para encontrar la solución
+                que buscas.
+              </p>
 
               <div className="loader-container">
                 <CircleLoader
@@ -52,7 +56,11 @@ const Step3 = ({ onMoveBackward }) => {
           )}
         </div>
       </div>
-      <div className=" flex mt-10 justify-center">
+      <div className=" flex mt-3 justify-center ">
+        <RandomFarewellMessage />
+      </div>
+
+      <div className=" flex flex-col mt-10 justify-center">
         <button
           className="bg-white text-[22px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}

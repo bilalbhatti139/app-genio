@@ -66,7 +66,6 @@ const Informations = ({ json }) => {
             >
               Ver más
             </a>
-            <RandomFarewellMessage/>
           </div>
         );
       })}

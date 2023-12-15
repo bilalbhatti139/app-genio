@@ -112,7 +112,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
     const systemContent =
       selectedQuestions.length !== 0
         ? `Eres un asesor y tienes que dar recomendaciones, en base a la información que yo te proporcione.
-    user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${buttonsText}.
+    user content: A continuación te voy a pasar 5 preguntas con 5 respuestas que ha dado un usuario. En base a esa información, tienes que redactar un pequeño poema, chiste o acertijo, de no más de 8 líneas, y por otro lado, 5 productos. Para cada producto tienes que indicar una breve descripción y el título. Tienes que recomendar obligatoriamente ${"Otro"}.
     {question-1}:{answer-1}
     {question-2}:{answer-2}
     {question-3}:{answer-3}
@@ -324,7 +324,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
         ¡GENIAL! VAMOS A BUSCAR {buttonsText.toUpperCase()}
       </h1>
       {selectedQuestions.length === 0
-        ? Array.from({ length: 5 }, (_, index) => (
+        ? Array.from({ length: 1 }, (_, index) => (
             <div key={index} className="mb-8">
               <input
                 className="shadow text-[#696969] appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
