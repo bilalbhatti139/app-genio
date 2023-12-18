@@ -53,7 +53,6 @@ const Informations = ({ json }) => {
               <span className="font-bold">{`${json[productKey]}: `}</span>
               {json[descriptionKey]}
             </p>
-            <br/>
             <a
               style={{ wordBreak: "break-word" }}
               href={
@@ -69,6 +68,8 @@ const Informations = ({ json }) => {
           </div>
         );
       })}
+      <br />
+
       <RandomFarewellMessage />
     </div>
   );

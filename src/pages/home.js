@@ -79,7 +79,7 @@ const Home = () => {
           <img
             src={genieImage2}
             alt="Genie Logo"
-            className="h-[150px]"
+            className="h-[170px] pt-8"
             id="genieNumber1" // Add an identifier to associate with number 1
             onClick={handleFunc2}
           />
