@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import genieImage from "../assets/1.png";
-import genieImage2 from "../assets/l1.png";
+import genieImage2 from "../assets/img.png";
 import Step2 from "../pages/step2";
 import Step3 from "../pages/step3";
 import CustomStepper from "../Components/stepper";
@@ -79,7 +79,7 @@ const Home = () => {
           <img
             src={genieImage2}
             alt="Genie Logo"
-            className="h-[200px]"
+            className="h-[150px]"
             id="genieNumber1" // Add an identifier to associate with number 1
             onClick={handleFunc2}
           />
@@ -93,7 +93,7 @@ const Home = () => {
       <div className="container mx-auto my-[4.5rem]">
         <div className="flex justify-center items-center flex-col">
           {activeStep === 0 ? (
-            <h1 className="text-[#5082C8] font-normal font-jella-demo text-center text-4xl">
+            <h1 className="text-[#5082C8] font-normal font-jella-demo text-center text-2xl">
               Pon a prueba al Genio, ¿Encontrará lo que buscas?
             </h1>
           ) : (

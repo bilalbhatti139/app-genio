@@ -319,7 +319,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
   // console.log("formdata", formData);
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
-      <h1 className="font-[600] text-[32px] text-[#5082C8]">
+      <h1 className="font-[600] text-[24px] text-[#5082C8]">
         ¡GENIAL! VAMOS A BUSCAR {buttonsText.toUpperCase()}
       </h1>
       {selectedQuestions.length === 0
@@ -344,7 +344,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
             <div key={index} className="mb-4">
               {/* Render your questions and inputs here */}
               <label
-                className="block text-[#000000] text-[24px] font-[500] mb-2"
+                className="block text-[#000000] text-[20px] font-[500] mb-2"
                 htmlFor={`question-${index + 1}`}
               >
                 {question}
@@ -365,13 +365,13 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
 
       <div className="mb-6 gap-[10px] flex justify-center">
         <button
-          className="bg-white text-[22px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-white text-[20px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}
         >
           Volver al inicio
         </button>
         <button
-          className="bg-[#009F3C] text-[22px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-1 px-1 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-[#009F3C] text-[20px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-1 px-1 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Invocar al genio

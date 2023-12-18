@@ -62,7 +62,7 @@ const Step3 = ({ onMoveBackward }) => {
 
       <div className=" flex flex-col mt-10 justify-center">
         <button
-          className="bg-white text-[22px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-white text-[20px] hover:border-[#696969] text-[#696969] font-[700] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           onClick={onMoveBackward}
         >
           Volver al inicio

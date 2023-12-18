@@ -48,12 +48,12 @@ const Informations = ({ json }) => {
         const encodedProduct = json[productKey].replace(/ /g, "+");
 
         return (
-          <div key={productKey} className="mt-4">
+          <div key={productKey} className="mt-3">
             <p>
               <span className="font-bold">{`${json[productKey]}: `}</span>
               {json[descriptionKey]}
             </p>
-
+            <br/>
             <a
               style={{ wordBreak: "break-word" }}
               href={
