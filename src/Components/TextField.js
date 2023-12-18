@@ -329,7 +329,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
                 className="shadow text-[#696969] appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id={`question-${index + 1}`}
                 type="text"
-                placeholder={`Escribe aquí tu respuesta ${index + 1} . . .`}
+                placeholder={`Escribe aquí tu respuesta`}
                 name={`question-${index + 1}`}
                 value={formData[`question-${index + 1}`] || ""}
                 onChange={(e) => {
@@ -371,7 +371,7 @@ const FormComponent = ({ onSubmit, onMoveBackward }) => {
           Volver al inicio
         </button>
         <button
-          className="bg-[#009F3C] text-[20px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-1 px-1 rounded-[5px] focus:outline-none focus:shadow-outline"
+          className="bg-[#009F3C] text-[20px] hover:bg-white text-[#F5F5F5] font-[700] hover:text-[#696969] border-2 font-bold py-2 px-3 rounded-[5px] focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Invocar al genio

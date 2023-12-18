@@ -50,21 +50,22 @@ const Informations = ({ json }) => {
         return (
           <div key={productKey} className="mt-3">
             <p>
-              <span className="font-bold">{`${json[productKey]}: `}</span>
-              {json[descriptionKey]}
+              <span className="font-bold">
+                <a
+                  style={{ wordBreak: "break-word" }}
+                  href={
+                    isButtonValid
+                      ? `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&sec=${buttonsText}&O=menos`
+                      : `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&O=menos`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {json[productKey]}
+                </a>
+              </span>
+              : {json[descriptionKey]}
             </p>
-            <a
-              style={{ wordBreak: "break-word" }}
-              href={
-                isButtonValid
-                  ? `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&sec=${buttonsText}&O=menos`
-                  : `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&O=menos`
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ver más
-            </a>
           </div>
         );
       })}

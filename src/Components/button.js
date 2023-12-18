@@ -116,11 +116,11 @@ const ButtonList = ({ onMoveForward }) => {
       internal: "tebeos-comics",
     },
     {
-      text: 'Otro',
+      text: "No lo tengo claro",
       borderRadius: 5,
       Color: "#C38E19",
       isEditable: false,
-      internal: 'OTRO',
+      internal: "No lo tengo claro",
     },
   ];
 

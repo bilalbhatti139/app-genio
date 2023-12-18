@@ -90,7 +90,7 @@ const Home = () => {
           </div> */}
         </div>
       </div>
-      <div className="container mx-auto my-[4.5rem]">
+      <div className="container mx-auto my-[3rem]">
         <div className="flex justify-center items-center flex-col">
           {activeStep === 0 ? (
             <h1 className="text-[#5082C8] font-normal font-jella-demo text-center text-2xl">
