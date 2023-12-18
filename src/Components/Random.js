@@ -1,4 +1,4 @@
-import React ,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { usePresssedButtonsText } from "../Context/buttonForwordContext";
 
 const FarewellMessages = [
@@ -8,7 +8,7 @@ const FarewellMessages = [
   "¡Que la magia te acompañe hasta nuestro próximo encuentro! Me esfumo por ahora.",
   "¡Hasta la próxima, explorador de deseos! Me retiro a mi guarida mágica.",
   "¡Que tus días estén llenos de risas y genialidad! Nos encontraremos pronto.",
-  "¡Adiós por ahora, pero recuerda que la magia siempre vuelve!"
+  "¡Adiós por ahora, pero recuerda que la magia siempre vuelve!",
 ];
 
 const buttonsData = [
@@ -37,34 +37,38 @@ const buttonsData = [
     Color: "#7600A9",
     internal: "tebeos-comics",
   },
- 
 ];
 
 const RandomFarewellMessage = () => {
-    const { buttonsText } = usePresssedButtonsText();
-    const [randomMessage, setRandomMessage] = useState("");
+  const { buttonsText } = usePresssedButtonsText();
+  const [randomMessage, setRandomMessage] = useState("");
 
-    // Function to pick a random message
-    const getRandomMessage = () => {
-      const randomIndex = Math.floor(Math.random() * FarewellMessages.length);
-      setRandomMessage(FarewellMessages[randomIndex]);
-    };
-  
-    // Call this function to get a random message
-useEffect(() => {
- getRandomMessage()
-}, [])
+  // Function to pick a random message
+  const getRandomMessage = () => {
+    const randomIndex = Math.floor(Math.random() * FarewellMessages.length);
+    setRandomMessage(FarewellMessages[randomIndex]);
+  };
+
+  // Call this function to get a random message
+  useEffect(() => {
+    getRandomMessage();
+  }, []);
 
   // Check if buttonText matches any internal value
-  const isButtonValid = buttonsData.some((button) => button.internal === buttonsText);
+  const isButtonValid = buttonsData.some(
+    (button) => button.internal === buttonsText
+  );
 
   return (
+    // <div>
+    //   {isButtonValid ? (
+    //     null
+    //   ) : (
+    //     <p>{randomMessage}</p>
+    //     )}
+    // </div>
     <div>
-      {isButtonValid ? (
-        null
-      ) : (
-        <p>{randomMessage}</p>
-        )}
+      <p>{randomMessage}</p>
     </div>
   );
 };
