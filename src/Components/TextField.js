@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useOpenAI } from "../Context/apiContext";
-import { usePresssedButtonsText } from "../Context/buttonForwordContext";
+import { usePresssedButtonsText,usePresssedButtonsText2 } from "../Context/buttonForwordContext";
 import jsondata from "../Json/data.json";
 const FormComponent = ({ onSubmit, onMoveBackward }) => {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [formData, setFormData] = useState("");
   const { buttonsText } = usePresssedButtonsText();
+  const { buttonsText2 } = usePresssedButtonsText2();
+
 
   const { setResponse } = useOpenAI();
 
@@ -416,7 +418,7 @@ Descripción:
   return (
     <form className=" mt-8" onSubmit={handleSubmit}>
       <h1 className="font-[600] text-[24px] text-[#5082C8]">
-        ¡GENIAL! VAMOS A BUSCAR {buttonsText.toUpperCase()}
+        ¡GENIAL! VAMOS A BUSCAR {buttonsText2.toUpperCase()}
       </h1>
       {selectedQuestions.length === 0
         ? Array.from({ length: 1 }, (_, index) => (

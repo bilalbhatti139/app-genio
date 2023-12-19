@@ -88,7 +88,7 @@ const Button = ({
 
 const ButtonList = ({ onMoveForward }) => {
   const { buttonText, updateButtonText } = useButtonText();
-  const { updateButtonsText, savePressedButtonText } = usePresssedButtonsText();
+  const { updateButtonsText, savePressedButtonText,updateButtonsText2, savePressedButtonText2 } = usePresssedButtonsText();
   const buttonsData = [
     { text: "Libros", borderRadius: 5, Color: "#5082c8", internal: "libros" },
     {
@@ -153,7 +153,11 @@ const ButtonList = ({ onMoveForward }) => {
                 // onChange={handleEditableTextChange}
                 onClick={(e) => {
                   updateButtonsText(button.internal);
+                  updateButtonsText2(button.text);
+
                   savePressedButtonText();
+                  savePressedButtonText2();
+
                   if (onMoveForward) {
                     onMoveForward();
                   }
