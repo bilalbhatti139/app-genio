@@ -72,14 +72,14 @@ const Home = () => {
         Este sitio web utiliza cookies para mejorar la experiencia del usuario.{" "}
       </CookieConsent>
       <div
-        className="relative h-[200px] bg-cover bg-center"
+        className="flex justify-center items-center relative h-[200px] bg-cover bg-center"
         style={{ backgroundImage: `url(${genieImage})` }}
       >
         <div className="flex justify-center hover:cursor-pointer items-center flex-col">
           <img
             src={genieImage2}
             alt="Genie Logo"
-            className="h-[170px] pt-8"
+            className="h-[120px]"
             id="genieNumber1" // Add an identifier to associate with number 1
             onClick={handleFunc2}
           />
