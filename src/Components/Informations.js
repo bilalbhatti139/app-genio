@@ -55,8 +55,8 @@ const Informations = ({ json }) => {
                   style={{ wordBreak: "break-word" }}
                   href={
                     isButtonValid
-                      ? `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&sec=${buttonsText}&O=menos`
-                      : `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&O=menos`
+                      ? `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&sec=${buttonsText}&O=seg`
+                      : `https://www.todocoleccion.net/buscador?bu=${encodedProduct}&O=seg`
                   }
                   target="_blank"
                   rel="noopener noreferrer"

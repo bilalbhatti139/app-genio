@@ -53,3 +53,9 @@
 .my-custom-cookie-consent {
   height: 60px; /* Adjust the height as needed */
 }
+@media (max-width: 414px) {
+.my-custom-cookie-consent{
+margin-bottom: 0px;
+padding-bottom:120px;
+}
+}
